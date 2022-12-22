@@ -19,9 +19,7 @@ runs:
       run: python make_readme.py
       shell: bash
     - name: Commit README.md
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git add notebook_examples/README.md
-        git commit -m "committing README.md with GitHub actions"
+        git -c user.name=$name -c user.email=$email commit -m "committing README.md with GitHub actions"
       shell: bash
