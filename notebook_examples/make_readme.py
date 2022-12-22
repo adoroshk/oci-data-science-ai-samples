@@ -13,6 +13,8 @@ def parse_adsbib_format(input: str) -> dict:
     if not input.startswith(prefix):
         return {}
 
+        
+
     # Strip out the field/value strings
     input = input[len(prefix) :].strip("{}")
     field_value_list = [l.strip(",\t") for l in input.split("\n") if len(l) > 0]
