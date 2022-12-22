@@ -22,3 +22,8 @@ jobs:
       - name: Run python script
         id: make_readme
         uses: ./
+      - name: Add README.md
+        run: |
+          git add notebook_examples/README.md
+          git commit -m "committing README.md with GitHub actions"
+
