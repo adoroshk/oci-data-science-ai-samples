@@ -22,3 +22,4 @@ runs:
       run: |
         git add notebook_examples/README.md
         git commit -m "committing README.md with GitHub actions"
+      shell: bash
