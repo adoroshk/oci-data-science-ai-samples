@@ -1,5 +1,5 @@
 name: "Make README.md"
-description: "Makes README.md on push or pull request events or when manually triggered"
+description: "Make README.md"
 runs:
   using: "composite"
   steps:
@@ -14,7 +14,7 @@ runs:
         pip install nbformat
       shell: bash
     - name: Make README.md
-      working-directory: ./notebook_examples
+      working-directory: ../../notebook_examples
       id: make_readme
       run: python make_readme.py
       shell: bash

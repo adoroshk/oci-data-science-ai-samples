@@ -1,5 +1,5 @@
 
-name: Make README.md
+name: Make and commit README.md
 on:
   # Triggers the workflow on push or pull request events
   push:
@@ -13,13 +13,16 @@ on:
   # Allows mannual triggering
   workflow_dispatch:
 jobs:
-  make-readme-and-index:
+  make-and-commit-readme-file:
     runs-on: ubuntu-latest
-    name: make readme.md
+    name: make and commit readme.md
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Run python script
+      - name: Make README.md
         id: make_readme
-        uses: ./
+        uses: ./actions/make_readme
+      - name: Commit README.md
+        id: commit_readme
+        uses: ./actions/commit_action
 
