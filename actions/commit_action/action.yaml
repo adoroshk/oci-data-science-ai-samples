@@ -1,13 +1,32 @@
-name: "Commit README.md"
-description: "Commits README.md"
+name: "Commit changes"
+description: "Commits changes"
+
+inputs:
+  commit_message:
+    description: Commit message
+    required: false
+    default: Auto commit changes
+  commit_author:
+    description: Value used for the commit author. Defaults to the username of whoever triggered this workflow run.
+    required: false
+    default: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+  commit_user_email:
+    description: Email address used for the commit user
+    required: false
+    default: github-actions[bot]@users.noreply.github.com
+  file_pattern:
+    description: File pattern used for `git add`. For example `src/*.js`
+    required: false
+    default: '.'
+
 runs:
   using: "composite"
   steps:
     - name: Commit README.md
       run: |
-        git config user.name 'github-actions[bot]'
-        git config user.email 'github-actions[bot]@users.noreply.github.com'
-        git add ':/notebook_examples/README.md'
-        git commit -m "committing README.md with GitHub actions"
+        git config user.name ${{ commit_author }}
+        git config user.email ${{ commit_user_email$ }}
+        git add ${{ file_pattern }}
+        git commit ${{ commit_message }}
         git push
       shell: bash

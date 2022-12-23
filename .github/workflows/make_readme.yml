@@ -23,4 +23,12 @@ jobs:
         uses: ./actions/make_readme
       - name: Commit README.md
         uses: ./actions/commit_action
+        with:
+          # Optional. Commit message for the created commit.
+          # Defaults to "Auto commit changes"
+          commit_message: Auto commit README.md
+          #Optional. File pattern used for `git add`. For example `src/*.js`
+          # Defaults to '.'
+          file_pattern: ':/notebook_examples/README.md'
+
 
