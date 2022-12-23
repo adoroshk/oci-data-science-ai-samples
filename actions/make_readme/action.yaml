@@ -18,4 +18,3 @@ runs:
       id: make_readme
       run: python make_readme.py
       shell: bash
-    - uses: ./actions/commit_action

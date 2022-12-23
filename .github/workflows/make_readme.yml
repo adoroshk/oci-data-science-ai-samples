@@ -20,9 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Make README.md
-        id: make_readme
         uses: ./actions/make_readme
       - name: Commit README.md
-        id: commit_readme
         uses: ./actions/commit_action
 
