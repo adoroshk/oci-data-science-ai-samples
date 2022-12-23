@@ -1,4 +1,3 @@
-
 name: Make and commit README.md
 on:
   # Triggers the workflow on push or pull request events
@@ -29,6 +28,4 @@ jobs:
           commit_message: Auto commit README.md
           #Optional. File pattern used for `git add`. For example `src/*.js`
           # Defaults to '.'
-          file_pattern: ':/notebook_examples/README.md'
-
-
+          file_pattern: ":/notebook_examples/README.md"
