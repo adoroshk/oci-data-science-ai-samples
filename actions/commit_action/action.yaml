@@ -28,5 +28,6 @@ runs:
         git config user.email '${{ inputs.commit_user_email }}'
         git add '${{ inputs.file_pattern }}'
         git commit -m '${{ inputs.commit_message }}'
+        git diff --staged
         git push
       shell: bash
