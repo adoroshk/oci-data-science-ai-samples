@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Make README.md
         uses: ./actions/make_readme
-      - name: Commit README.md
+      - name: Committ if there ara changes to README.md
         uses: ./actions/commit_action
         with:
           # Optional. Commit message for the created commit. Defaults to "Auto commit changes"
