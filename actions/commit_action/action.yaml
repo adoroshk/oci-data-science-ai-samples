@@ -7,7 +7,7 @@ runs:
       run: |
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
-        git add notebook_examples/README.md
+        git add ':/notebook_examples/README.md'
         git commit -m "committing README.md with GitHub actions"
         git push
       shell: bash
