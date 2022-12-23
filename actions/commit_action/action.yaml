@@ -24,9 +24,9 @@ runs:
   steps:
     - name: Commit README.md
       run: |
-        git config user.name ${{ commit_author }}
-        git config user.email ${{ commit_user_email$ }}
-        git add ${{ file_pattern }}
-        git commit ${{ commit_message }}
+        git config user.name ${{ inputs.commit_author }}
+        git config user.email ${{ inputs.commit_user_email$ }}
+        git add ${{ inputs.file_pattern }}
+        git commit ${{ inputs.commit_message }}
         git push
       shell: bash
