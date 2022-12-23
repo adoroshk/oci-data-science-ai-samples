@@ -27,8 +27,9 @@ runs:
     # to catch the error if there are no changes to commit
     - name: Commit README.md
       run: |
-        git config user.name '${{ inputs.commit_author }}'
-        git config user.email '${{ inputs.commit_user_email }}'
+        export GIT_USER=${{secrets.GIT_USER}}
+        git config --global user.name "$GIT_USER"
+        git config --global user.email "hi@pushe.co"
         git add '${{ inputs.file_pattern }}'
         git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
         git push
