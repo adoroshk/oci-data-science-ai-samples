@@ -9,15 +9,15 @@ inputs:
   commit_author:
     description: Value used for the commit author. Defaults to the github-actions[bot].
     required: false
-    default: 'github-actions[bot]'
+    default: "github-actions[bot]"
   commit_user_email:
-    description: Email address used for the commit user
+    description: Email address used for the commit user. Defaults to the 'github-actions[bot]@users.noreply.github.com'
     required: false
-    default: 'github-actions[bot]@users.noreply.github.com'
+    default: "github-actions[bot]@users.noreply.github.com"
   file_pattern:
     description: File pattern used for `git add`. For example `src/*.js`
     required: false
-    default: '.'
+    default: "."
 
 runs:
   using: "composite"
@@ -27,6 +27,6 @@ runs:
         git config user.name '${{ inputs.commit_author }}'
         git config user.email '${{ inputs.commit_user_email }}'
         git add '${{ inputs.file_pattern }}'
-        git commit -m ${{ inputs.commit_message }}
+        git commit -m '${{ inputs.commit_message }}'
         git push
       shell: bash
