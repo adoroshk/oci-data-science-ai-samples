@@ -23,15 +23,21 @@ runs:
   using: "composite"
   steps:
     # NOTE: git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
-    # needs the part after OR operator: '|| echo "No changes to commit' 
+    # needs the part after OR operator: '|| echo "No changes to commit'
     # to catch the error if there are no changes to commit
-    - name: Commit README.md
+    - name: Commit
+      id: commit_changes
       run: |
-        export GIT_USER=${{secrets.GIT_USER}}
+        export GIT_USER=${{ secrets.GITHUB_TOKEN }}
         git config --global user.name "$GIT_USER"
         git config --global user.email "hi@pushe.co"
         git add '${{ inputs.file_pattern }}'
+        echo "COMMIT_RESULT=green" >> $GITHUB_OUTPUT
         git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
         git push
         hub pull-request
+      shell: bash
+    - name: Check output
+      run: |
+        echo "The commit result is ${{ steps.commit_changes.outputs.COMMIT_RESULT }}"
       shell: bash
