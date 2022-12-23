@@ -27,10 +27,9 @@ runs:
     # to catch the error if there are no changes to commit
     - name: Commit
       id: commit_changes
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        export GIT_USER=${{ secrets.GITHUB_TOKEN }}
-        git config --global user.name "$GIT_USER"
-        git config --global user.email "hi@pushe.co"
         git add '${{ inputs.file_pattern }}'
         echo "COMMIT_RESULT=green" >> $GITHUB_OUTPUT
         git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
