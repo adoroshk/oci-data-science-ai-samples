@@ -29,6 +29,6 @@ runs:
         git add '${{ inputs.file_pattern }}'
         git commit -m '${{ inputs.commit_message }}'
         echo 'Printing git diff --name-only results:'
-        echo {{ git diff --name-only }}
+        echo '${{ git diff --name-only }}'
         git push
       shell: bash
