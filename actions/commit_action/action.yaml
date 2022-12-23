@@ -27,6 +27,6 @@ runs:
         git config user.name '${{ inputs.commit_author }}'
         git config user.email '${{ inputs.commit_user_email }}'
         git add '${{ inputs.file_pattern }}'
-        git commit '${{ inputs.commit_message }}'
+        git commit -m '${{ inputs.commit_message }}'
         git push
       shell: bash
