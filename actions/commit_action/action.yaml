@@ -27,8 +27,6 @@ runs:
         git config user.name '${{ inputs.commit_author }}'
         git config user.email '${{ inputs.commit_user_email }}'
         git add '${{ inputs.file_pattern }}'
-        echo 'Printing git diff --name-only results:'
-        git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }}
-        git commit -m '${{ inputs.commit_message }}'
-        git push
+        git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
+        git push || echo "No changes to push"
       shell: bash
