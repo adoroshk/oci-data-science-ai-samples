@@ -7,13 +7,13 @@ inputs:
     required: false
     default: Auto commit changes
   commit_author:
-    description: Value used for the commit author. Defaults to the username of whoever triggered this workflow run.
+    description: Value used for the commit author. Defaults to the github-actions[bot].
     required: false
-    default: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+    default: 'github-actions[bot]'
   commit_user_email:
     description: Email address used for the commit user
     required: false
-    default: github-actions[bot]@users.noreply.github.com
+    default: 'github-actions[bot]@users.noreply.github.com'
   file_pattern:
     description: File pattern used for `git add`. For example `src/*.js`
     required: false
