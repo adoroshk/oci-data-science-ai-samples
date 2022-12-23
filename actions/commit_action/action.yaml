@@ -28,7 +28,7 @@ runs:
         git config user.email '${{ inputs.commit_user_email }}'
         git add '${{ inputs.file_pattern }}'
         echo 'Printing git diff --name-only results:'
-        echo '${ git diff --name-only }'
+        echo '${{ git diff --name-only }}'
         git commit -m '${{ inputs.commit_message }}'
         git push
       shell: bash
