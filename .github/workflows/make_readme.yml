@@ -22,7 +22,7 @@ jobs:
         uses: ./actions/make_readme
       - name: Check uncommitted changes
         id: check-changes
-        uses: ./actions/check_uncomitted_changes
+        uses: ./actions/check_uncommitted_changes
       - name: Print uncommitted changes
         if: steps.check-changes.outputs.changes != ''
         run: echo ${{ steps.check-changes.outputs.changes }}
