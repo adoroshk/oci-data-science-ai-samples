@@ -28,5 +28,5 @@ runs:
         git config user.email '${{ inputs.commit_user_email }}'
         git add '${{ inputs.file_pattern }}'
         git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
-        git push || echo "No changes to push"
+        git push
       shell: bash
