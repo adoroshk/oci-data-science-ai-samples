@@ -17,14 +17,14 @@ inputs:
   file_pattern:
     description: File pattern used for `git add`. For example `src/*.js`
     required: false
-    default: "."
+    default: '.'
 
 runs:
   using: "composite"
   steps:
     - name: Commit README.md
       run: |
-        git config user.name ${{ inputs.commit_author }}
+        git config user.name 'github-actions[bot]'
         git config user.email ${{ inputs.commit_user_email }}
         git add ${{ inputs.file_pattern }}
         git commit ${{ inputs.commit_message }}
