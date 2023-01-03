@@ -27,16 +27,17 @@ runs:
     # to catch the error if there are no changes to commit
     - name: Commit
       id: commit_changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git add '${{ inputs.file_pattern }}'
         echo "COMMIT_RESULT=green" >> $GITHUB_OUTPUT
         git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
-        git push
-        hub pull-request
       shell: bash
     - name: Check output
       run: |
         echo "The commit result is ${{ steps.commit_changes.outputs.COMMIT_RESULT }}"
+      shell: bash
+    - name: Push and pull-request
+      run: |
+        git push
+        hub pull-request
       shell: bash
