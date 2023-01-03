@@ -34,7 +34,7 @@ runs:
       id: check_changes
       run: |
         git add '${{ inputs.file_pattern }}'
-        DIFF_CHECK_RESULT=$(git diff --cached --exit-code)
+        $DIFF_CHECK_RESULT=$(git diff --cached --exit-code)
         echo "RESULT=${{ $DIFF_CHECK_RESULT }}" >> $GITHUB_OUTPUT
       shell: bash
     - name: Print check resuls
