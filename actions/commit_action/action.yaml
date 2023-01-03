@@ -33,6 +33,12 @@ runs:
     - name: Check for staged changes
       id: check_for_changes
       run: |
+        # Diff HEAD with the previous commit
+        $diff = git diff --name-only HEAD^ HEAD
+        echo "*****"
+        echo $diff
+        echo "*****"
+        
         git add '${{ inputs.file_pattern }}'
         git diff --cached
         echo $?
