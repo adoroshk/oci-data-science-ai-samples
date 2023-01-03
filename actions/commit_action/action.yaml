@@ -30,7 +30,7 @@ runs:
       run: |
         git add '${{ inputs.file_pattern }}'
         echo "COMMIT_RESULT=green" >> $GITHUB_OUTPUT
-        git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
+        git commit -m '${{ inputs.commit_message }}' && echo "COMMIT_RESULT=green" >> $GITHUB_OUTPUT || echo "No changes to commit" && echo "COMMIT_RESULT=red" >> $GITHUB_OUTPUT
       shell: bash
     - name: Check output
       run: |
