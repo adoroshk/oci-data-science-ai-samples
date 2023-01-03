@@ -34,10 +34,12 @@ runs:
       id: check_for_changes
       run: |
         git add '${{ inputs.file_pattern }}
+        git diff --cached --name-only
+        echo $?
         CHANGED_FILES=$(git diff --cached --name-only)
         echo "*****"
         echo $?
-        echo $CHANGED_FILES
+        echo "$CHANGED_FILES"
         echo "*****"        
         if [[ -z "$CHANGED_FILES" ]]; then
           echo "RESULT=true" >> $GITHUB_OUTPUT
