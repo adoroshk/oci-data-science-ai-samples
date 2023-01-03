@@ -34,7 +34,8 @@ runs:
       id: check_for_changes
       run: |
         git add '${{ inputs.file_pattern }}'
-
+        $(git diff --cached)
+        echo $?
         if $(git diff --cached)!=''; then
           echo "RESULT=true" >> $GITHUB_OUTPUT
         else 
