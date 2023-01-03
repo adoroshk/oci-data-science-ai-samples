@@ -34,7 +34,7 @@ runs:
       id: check_for_changes
       run: |
         git add '${{ inputs.file_pattern }}'
-        git diff --cached --exit-code >> $GITHUB_OUTPUT
+        git diff --cached >> $GITHUB_OUTPUT
         echo "***********"
       shell: bash
     - name: Print check resuls
@@ -42,7 +42,7 @@ runs:
         echo "Check for staged changes RESULT: ${{ steps.check_for_changes.outputs.RESULT }}"
       shell: bash
     - name: Commit, push and create pull-request
-      if: steps.check_for_changes.outputs.RESULT == 1
+      if: steps.check_for_changes.outputs.RESULT != ''
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
