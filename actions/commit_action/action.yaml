@@ -38,5 +38,5 @@ runs:
       # if: steps.commit_changes.outputs.COMMIT_RESULT == 'true'
       run: |
         git push
-        hub pull-request 
+        gh pr create --title "README.md updated" --body "README.md has been updated with GitHub action"
       shell: bash
