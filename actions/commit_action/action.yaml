@@ -33,7 +33,7 @@ runs:
     - name: Check for staged changes
       id: check_for_changes
       run: |
-        git add '${{ inputs.file_pattern }}
+        #git add '${{ inputs.file_pattern }}
         echo $?
         echo "111"
         git diff --cached --name-only
