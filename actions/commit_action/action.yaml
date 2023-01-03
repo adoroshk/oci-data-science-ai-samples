@@ -34,12 +34,8 @@ runs:
         echo "COMMIT_RESULT=true" >> $GITHUB_OUTPUT
         git commit -m '${{ inputs.commit_message }}' || echo "COMMIT_RESULT=false" >> $GITHUB_OUTPUT
       shell: bash
-    - name: Check output
-      run: |
-        echo "The commit result is ${{ steps.commit_changes.outputs.COMMIT_RESULT }}"
-      shell: bash
     - name: Push and pull-request
-      if: steps.commit_changes.outputs.COMMIT_RESULT == 'true'
+      # if: steps.commit_changes.outputs.COMMIT_RESULT == 'true'
       run: |
         git push
         hub pull-request 
