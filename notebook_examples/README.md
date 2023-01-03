@@ -14,7 +14,7 @@ The ADS SDK can be downloaded from [PyPi](https://pypi.org/project/oracle-ads/),
 
 ## Notebooks
 ### - API Keys
-#### [`api_keys-authentication4.ipynb`](api_keys-authentication4.ipynb)
+#### [`api_keys-authentication5.ipynb`](api_keys-authentication5.ipynb)
 
  
 Configure and test API key authentication, attach keys to user account through Oracle's identity service, and test access to the API.
