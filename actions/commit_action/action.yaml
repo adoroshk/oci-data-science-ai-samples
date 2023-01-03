@@ -35,9 +35,10 @@ runs:
       run: |
         git add '${{ inputs.file_pattern }}'
         if git diff --cached --exit-code; then
-          echo "RESULT=true" >> $GITHUB_OUTPUT
+        echo "RESULT=true" >> $GITHUB_OUTPUT
         else 
-          echo "RESULT=false" >> $GITHUB_OUTPUT
+        echo "RESULT=false" >> $GITHUB_OUTPUT
+        fi
       shell: bash
     - name: Print check resuls
       run: |
