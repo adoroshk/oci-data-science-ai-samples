@@ -34,7 +34,7 @@ runs:
       id: check_for_changes
       run: |
         # git add '${{ inputs.file_pattern }}
-        CHANGED_FILES=$(git diff --name-only) || ""
+        CHANGED_FILES=$(git diff --name-only --cached) || ""
         echo "*****"
         echo $CHANGED_FILES
         echo "*****"        
