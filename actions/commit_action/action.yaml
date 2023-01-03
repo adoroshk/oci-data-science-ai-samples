@@ -33,13 +33,14 @@ runs:
     - name: Check for staged changes
       id: check_for_changes
       run: |
-        git add '${{ inputs.file_pattern }}'
-        git diff --cached --name-only
-        echo $?
+        git add '${{ inputs.file_pattern }}
+        CACHED_FILES=$(git diff --cached --name-only)
+        echo "*****"
+        echo $CACHED_FILES
         echo "*****"
 
         
-        if $(git diff --cached --name-only)!=''; then
+        if "$CACHED_FILES"!=''; then
           echo "RESULT=true" >> $GITHUB_OUTPUT
         else 
           echo "RESULT=false" >> $GITHUB_OUTPUT
