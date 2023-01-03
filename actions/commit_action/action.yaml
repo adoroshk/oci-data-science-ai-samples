@@ -37,15 +37,12 @@ runs:
         CACHED_FILES=$(git diff --cached --name-only)
         echo "*****"
         echo $CACHED_FILES
-        echo "*****"
-
-        
+        echo "*****"        
         if "$CACHED_FILES"!=''; then
           echo "RESULT=true" >> $GITHUB_OUTPUT
         else 
           echo "RESULT=false" >> $GITHUB_OUTPUT
         fi
-        echo "&&&&&"
       shell: bash
     - name: Print check resuls
       run: |
