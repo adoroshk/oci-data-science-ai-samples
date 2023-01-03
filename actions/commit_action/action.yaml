@@ -35,7 +35,8 @@ runs:
       run: |
         git add '${{ inputs.file_pattern }}'
         DIF="$(git diff --cached --exit-code)"
-        echo "DIF: ${{ $DIF }}"
+        echo "***********"
+        echo $DIF
         if git diff --cached --exit-code; then
           echo "RESULT=true" >> $GITHUB_OUTPUT
         else 
