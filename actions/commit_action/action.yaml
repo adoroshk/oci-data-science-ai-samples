@@ -22,23 +22,36 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # NOTE: git commit -m '${{ inputs.commit_message }}' || echo "No changes to commit"
-    # needs the part after OR operator: '|| echo "No changes to commit'
-    # to catch the error if there are no changes to commit
-    - name: Commit
+    # NOTE: git commit -m <MESSAGE> || echo <MESSAGE>
+    # needs the part after OR operator: '|| echo <MESSAGE>'
+    # otherwise it'll error if there are no changes to commit
+    - name: Set credentials
       id: commit_changes
       run: |
         git config user.email "you@example.com"
         git config user.name ${{ github.actor }}
+      shell: bash
+    - name: Check for staged changes
+      id: check_changes
+      run: |
         git add '${{ inputs.file_pattern }}'
+        echo "RESULT=${{ git diff --cached --exit-code }} >> $GITHUB_OUTPUT
+      shell: bash
+    - name: Print check resuls
+      run: |
+        echo "Check for staged changes RESULT: ${{ steps.check_changes.outputs.RESULT }}"
+      shell: bash
+    - name: Commit changes
+      id: commit_changes
+      run: |
         echo "COMMIT_RESULT=true" >> $GITHUB_OUTPUT
         git commit -m '${{ inputs.commit_message }}' || echo "COMMIT_RESULT=false" >> $GITHUB_OUTPUT
       shell: bash
     - name: Push and pull-request
-      # if: steps.commit_changes.outputs.COMMIT_RESULT == 'true'
+      if: steps.commit_changes.outputs.COMMIT_RESULT == 'true'
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
         git push
-        gh pr create --title "README.md updated" --body "README.md has been updated with GitHub action"
+        gh pr create --title "README.md auto update" --body "README.md has been auto updated by GitHub action"
       shell: bash
