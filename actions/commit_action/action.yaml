@@ -34,10 +34,10 @@ runs:
       id: check_for_changes
       run: |
         git add '${{ inputs.file_pattern }}'
-        git diff --cached
+        git diff --cached --exit-code
         echo $?
         echo "***********"
-        if $(git diff --cached)==1; then
+        if $(git diff --cached --exit-code)==1; then
           echo "RESULT=true" >> $GITHUB_OUTPUT
         else 
           echo "RESULT=false" >> $GITHUB_OUTPUT
