@@ -34,15 +34,14 @@ runs:
       id: check_for_changes
       run: |
         # Diff HEAD with the previous commit
-        git diff --name-only HEAD^ HEAD
-        echo "*****"
+        git diff --cached --name-only
         echo $?
         echo "*****"
 
         git add '${{ inputs.file_pattern }}'
-        #git diff --cached
-        #echo $?
-        if $(git diff --name-only HEAD^ HEAD)!=''; then
+        git diff --cached
+        echo $?
+        if $(git diff --cached --name-only)!=''; then
           echo "RESULT=true" >> $GITHUB_OUTPUT
         else 
           echo "RESULT=false" >> $GITHUB_OUTPUT
