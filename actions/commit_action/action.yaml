@@ -31,27 +31,24 @@ runs:
         git config user.name ${{ github.actor }}
       shell: bash
     - name: Check for staged changes
-      id: check_changes
+      id: check_for_changes
       run: |
         git add '${{ inputs.file_pattern }}'
-        $DIFF_CHECK_RESULT=$(git diff --cached --exit-code)
-        echo "RESULT=${{ $DIFF_CHECK_RESULT }}" >> $GITHUB_OUTPUT
+        if git diff --cached --exit-code; then
+          echo "RESULT=true" >> $GITHUB_OUTPUT
+        else 
+          echo "RESULT=false" >> $GITHUB_OUTPUT
       shell: bash
     - name: Print check resuls
       run: |
-        echo "Check for staged changes RESULT: ${{ steps.check_changes.outputs.RESULT }}"
+        echo "Check for staged changes RESULT: ${{ steps.check_for_changes.outputs.RESULT }}"
       shell: bash
-    - name: Commit changes
-      id: commit_changes
-      run: |
-        echo "COMMIT_RESULT=true" >> $GITHUB_OUTPUT
-        git commit -m '${{ inputs.commit_message }}' || echo "COMMIT_RESULT=false" >> $GITHUB_OUTPUT
-      shell: bash
-    - name: Push and pull-request
-      if: steps.commit_changes.outputs.COMMIT_RESULT == 'true'
+    - name: Commit, push and pull-request
+      if: steps.check_for_changes.outputs.RESULT == 'true'
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
+        git commit -m '${{ inputs.commit_message }}' || echo "There is nothing to commit"
         git push
         gh pr create --title "README.md auto update" --body "README.md has been auto updated by GitHub action"
       shell: bash
