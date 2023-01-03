@@ -31,15 +31,15 @@ runs:
         git config user.email "you@example.com"
         git config user.name ${{ github.actor }}
         git add '${{ inputs.file_pattern }}'
-        echo "COMMIT_RESULT=True" >> $GITHUB_OUTPUT
-        git commit -m '${{ inputs.commit_message }}' || echo "COMMIT_RESULT=False" >> $GITHUB_OUTPUT
+        echo "COMMIT_RESULT=true" >> $GITHUB_OUTPUT
+        git commit -m '${{ inputs.commit_message }}' || echo "COMMIT_RESULT=false" >> $GITHUB_OUTPUT
       shell: bash
     - name: Check output
       run: |
         echo "The commit result is ${{ steps.commit_changes.outputs.COMMIT_RESULT }}"
       shell: bash
     - name: Push and pull-request
-      if: ${{ steps.commit_changes.outputs.COMMIT_RESULT }}
+      if: steps.commit_changes.outputs.COMMIT_RESULT == 'true'
       run: |
         git push
         hub pull-request 
