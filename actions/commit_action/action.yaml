@@ -36,6 +36,8 @@ runs:
       shell: bash
     - name: Push and pull-request
       # if: steps.commit_changes.outputs.COMMIT_RESULT == 'true'
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         git push
         gh pr create --title "README.md updated" --body "README.md has been updated with GitHub action"
