@@ -28,9 +28,11 @@ runs:
     - name: Commit
       id: commit_changes
       run: |
+        git config user.email "you@example.com"
+        git config user.name ${{ github.actor }}
         git add '${{ inputs.file_pattern }}'
+        git commit -m '${{ inputs.commit_message }}' || echo "COMMIT_RESULT=red" >> $GITHUB_OUTPUT
         echo "COMMIT_RESULT=green" >> $GITHUB_OUTPUT
-        git commit -m '${{ inputs.commit_message }}' && echo "COMMIT_RESULT=green" >> $GITHUB_OUTPUT || echo "No changes to commit" && echo "COMMIT_RESULT=red" >> $GITHUB_OUTPUT
       shell: bash
     - name: Check output
       run: |
