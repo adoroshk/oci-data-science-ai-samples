@@ -44,18 +44,18 @@ runs:
         echo $?
         echo "$CHANGED_FILES"
         echo "*****"        
-        if [[ -z "$CHANGED_FILES" ]]; then
-          echo "RESULT=true" >> $GITHUB_OUTPUT
+        if [[ -z $CHANGED_FILES ]]; then
+          echo "CHANGED_FILES=true" >> $GITHUB_OUTPUT
         else 
-          echo "RESULT=false" >> $GITHUB_OUTPUT
+          echo "CHANGED_FILES=false" >> $GITHUB_OUTPUT
         fi
       shell: bash
     - name: Print check resuls
       run: |
-        echo "Check for staged changes RESULT: ${{ steps.check_for_changes.outputs.RESULT }}"
+        echo "Check for staged changes RESULT: ${{ steps.check_for_changes.outputs.CHANGED_FILES }}"
       shell: bash
     - name: Commit, push and create pull-request
-      if: steps.check_for_changes.outputs.RESULT == 'true'
+      if: steps.check_for_changes.outputs.CHANGED_FILES == 'true'
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
