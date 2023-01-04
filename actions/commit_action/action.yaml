@@ -52,7 +52,7 @@ runs:
       shell: bash
     - name: Print check resuls
       run: |
-        echo "Check for staged changes RESULT: ${{ steps.check_for_changes.outputs.CHANGED_FILES }}"
+        echo "Check for CHANGED_FILES: ${{ steps.check_for_changes.outputs.CHANGED_FILES }}"
       shell: bash
     - name: Commit, push and create pull-request
       if: steps.check_for_changes.outputs.CHANGED_FILES == 'true'
