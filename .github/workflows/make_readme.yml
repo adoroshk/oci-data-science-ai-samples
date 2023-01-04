@@ -23,7 +23,12 @@ jobs:
       - name: Commit, push and create pull-request if there ara changes to README.md
         uses: ./actions/create_pr_action
         with:
+          # Optional. A branch name to create a PR from. Defaults to "updated_by_github_action"
           branch_name: auto_update_readme
+          # Optional. PR title. Defaults to "Updates made by GitHub action"
+          pr_title: README.md auto update
+          # Optional. PR body value. Defaults to "Updates made by GitHub action"
+          pr_body: README.md has been auto updated by GitHub action
           # Optional. Commit message for the created commit. Defaults to "Auto commit changes"
           commit_message: Auto commit README.md
           # Optional. File pattern used for `git add`. Defaults to '.'
