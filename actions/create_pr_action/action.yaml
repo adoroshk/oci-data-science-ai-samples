@@ -1,7 +1,10 @@
 name: "Commit, push and create pull-request"
-description: "Commit, push and create pull-request"
+description: "Commit, push and create pull-request if there are changes"
 
 inputs:
+  branch_name: 
+    description: A branch name
+    required: true
   commit_message:
     description: Commit message
     required: false
@@ -18,6 +21,7 @@ inputs:
     description: File pattern used for `git add`. For example `src/*.js`
     required: false
     default: "."
+
 
 runs:
   using: "composite"
@@ -49,6 +53,7 @@ runs:
         GH_TOKEN: ${{ github.token }}
       run: |
         echo "Commiting, pushing and creating a PR"
+        git checkout -b ${{ inputs.branch_name }}'
         git commit -m '${{ inputs.commit_message }}'
         git push
         gh pr create --title "README.md auto update" --body "README.md has been auto updated by GitHub action"
