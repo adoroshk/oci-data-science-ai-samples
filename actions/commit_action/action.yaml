@@ -45,9 +45,9 @@ runs:
         echo "$CHANGED_FILES"
         echo "*****"        
         if [[ -z $CHANGED_FILES ]]; then
-          echo "CHANGED_FILES=true" >> $GITHUB_OUTPUT
-        else 
           echo "CHANGED_FILES=false" >> $GITHUB_OUTPUT
+        else 
+          echo "CHANGED_FILES=true" >> $GITHUB_OUTPUT
         fi
       shell: bash
     - name: Print check resuls
