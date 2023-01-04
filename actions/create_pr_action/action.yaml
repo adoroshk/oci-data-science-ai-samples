@@ -18,11 +18,11 @@ inputs:
     description: Commit message
     required: false
     default: Auto commit changes
-  commit_author:
+  author:
     description: Value used for the commit author. Defaults to the github-actions[bot].
     required: false
     default: "github-actions[bot]"
-  commit_user_email:
+  author_email:
     description: Email address used for the commit user. Defaults to the 'github-actions[bot]@users.noreply.github.com'
     required: false
     default: "github-actions[bot]@users.noreply.github.com"
@@ -36,9 +36,9 @@ runs:
   steps:
     - name: Setting git user
       run: |
-        echo "Setting git user to ${{ github.actor }}"
-        git config user.email "you@example.com"
-        git config user.name ${{ github.actor }}
+        echo "Setting git user to ${{ inputs.author }} and email to ${{ inputs.author_email }}"
+        git config user.email ${{ inputs.author_email }}
+        git config user.name ${{ inputs.author }}
       shell: bash
     - name: Staging changes
       id: staging_changes
