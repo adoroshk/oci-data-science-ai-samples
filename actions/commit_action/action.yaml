@@ -22,9 +22,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # NOTE: git commit -m <MESSAGE> || echo <MESSAGE>
-    # needs the part after OR operator: '|| echo <MESSAGE>'
-    # otherwise it'll error if there are no changes to commit
     - name: Set credentials
       run: |
         git config user.email "you@example.com"
@@ -34,32 +31,24 @@ runs:
       id: check_for_changes
       run: |
         git add '${{ inputs.file_pattern }}'
-        echo $?
-        echo "111"
-        git diff --cached --name-only
-        echo $?
-        echo "222"
         CHANGED_FILES=$(git diff --cached --name-only)
-        echo "*****"
-        echo $?
-        echo "$CHANGED_FILES"
-        echo "*****"        
         if [[ -z $CHANGED_FILES ]]; then
+          echo "There are staged changes"
           echo "CHANGED_FILES=false" >> $GITHUB_OUTPUT
         else 
+          echo "There are no staged changes"
           echo "CHANGED_FILES=true" >> $GITHUB_OUTPUT
         fi
-      shell: bash
-    - name: Print check resuls
-      run: |
-        echo "Check for CHANGED_FILES: ${{ steps.check_for_changes.outputs.CHANGED_FILES }}"
       shell: bash
     - name: Commit, push and create pull-request
       if: steps.check_for_changes.outputs.CHANGED_FILES == 'true'
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git commit -m '${{ inputs.commit_message }}' || echo "There is nothing to commit"
+        echo "Commiting staged changes"
+        git commit -m '${{ inputs.commit_message }}'
+        echo "Pushing changes"
         git push
+        echo "Creating PR request"
         gh pr create --title "README.md auto update" --body "README.md has been auto updated by GitHub action"
       shell: bash
