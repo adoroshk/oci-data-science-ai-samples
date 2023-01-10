@@ -62,7 +62,7 @@ runs:
       run: |
         echo "Commiting, pushing and creating a PR"
         echo "Checking out to the branch named ${{ inputs.branch_name }}"
-        git checkout -b '${{ inputs.branch_name }}'
+        git checkout -b $(date +'${{ inputs.branch_name }}'+%Y%m%d%H%M%S)
         echo "Committing with a message: ${{ inputs.commit_message }}"
         git commit -m '${{ inputs.commit_message }}'
         echo "Pushing"
