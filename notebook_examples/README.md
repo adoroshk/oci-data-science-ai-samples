@@ -348,7 +348,7 @@ This notebook was developed on the conda pack with slug: `generalml_p38_cpu_v1`
 #### [`pyspark-data_flow_studio-spark_nlp.ipynb`](pyspark-data_flow_studio-spark_nlp.ipynb)
 
  
-Demonstrates how to use Spark NLP within a long lasting Oracle Cloud Infrastructure Data Flow cluster.
+Develop local PySpark applications and work with remote clusters using Data Flow.
 
 This notebook was developed on the conda pack with slug: `pyspark32_p38_cpu_v1`
 
@@ -362,7 +362,7 @@ This notebook was developed on the conda pack with slug: `pyspark32_p38_cpu_v1`
 #### [`pyspark-data_flow_studio-introduction.ipynb`](pyspark-data_flow_studio-introduction.ipynb)
 
  
-Run interactive Spark workloads on a long lasting Oracle Cloud Infrastructure Data Flow Spark cluster through Apache Livy integration. Data Flow Spark Magic is used for interactively working with remote Spark clusters through Livy, a Spark REST server, in Jupyter notebooks. It includes a set of magic commands for interactively running Spark code.
+Demonstrates how to use Spark NLP within a long lasting Oracle Cloud Infrastructure Data Flow cluster.
 
 This notebook was developed on the conda pack with slug: `pyspark32_p38_cpu_v2`
 
@@ -376,7 +376,7 @@ This notebook was developed on the conda pack with slug: `pyspark32_p38_cpu_v2`
 #### [`pyspark-data_flow-application.ipynb`](pyspark-data_flow-application.ipynb)
 
  
-Develop local PySpark applications and work with remote clusters using Data Flow.
+Run interactive Spark workloads on a long lasting Oracle Cloud Infrastructure Data Flow Spark cluster through Apache Livy integration. Data Flow Spark Magic is used for interactively working with remote Spark clusters through Livy, a Spark REST server, in Jupyter notebooks. It includes a set of magic commands for interactively running Spark code.
 
 This notebook was developed on the conda pack with slug: `pyspark24_p37_cpu_v3`
 
@@ -474,12 +474,12 @@ This notebook was developed on the conda pack with slug: `nlp_p37_cpu_v2`
 #### [`train-register-deploy-xgboost.ipynb`](train-register-deploy-xgboost.ipynb)
 
  
-Train, register, and deploy an XGBoost model.
+Compare training time between CPU and GPU trained models using XGBoost
 
 This notebook was developed on the conda pack with slug: `generalml_p38_cpu_v1`
 
  
-`xgboost`  `deploy model`  `register model`  `train model`
+`xgboost`  `rapids`  `gpu`  `machine learning`  `classification`
 
 <sub>Universal Permissive License v 1.0</sup>
 
@@ -488,12 +488,12 @@ This notebook was developed on the conda pack with slug: `generalml_p38_cpu_v1`
 #### [`xgboost-with-rapids.ipynb`](xgboost-with-rapids.ipynb)
 
  
-Compare training time between CPU and GPU trained models using XGBoost
+Train, register, and deploy an XGBoost model.
 
 This notebook was developed on the conda pack with slug: `rapids2110_p37_gpu_v1`
 
  
-`xgboost`  `rapids`  `gpu`  `machine learning`  `classification`
+`xgboost`  `deploy model`  `register model`  `train model`
 
 <sub>Universal Permissive License v 1.0</sup>
 
