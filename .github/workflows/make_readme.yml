@@ -35,8 +35,3 @@ jobs:
           pr_body: README.md and index.json has been auto updated by GitHub action
           # Optional. Commit message for the created commit. Defaults to "Auto commit changes"
           commit_message: Auto commit README.md and index.json
-          # Optional. Select the files to check for updates. Defaults to '.'
-          # In this case we are interested only in changes in notebook_examples/README.md
-          file_pattern: |
-            - :/notebook_examples/README.md 
-            - :/notebook_examples/index.json
