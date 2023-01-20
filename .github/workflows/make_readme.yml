@@ -37,4 +37,4 @@ jobs:
           commit_message: Auto commit README.md and index.json
           # Optional. Select the files to check for updates. Defaults to '.'
           # In this case we are interested only in changes in notebook_examples/README.md
-          file_pattern: :/notebook_examples/README.md :/notebook_examples/index.json
+          #file_pattern: :/notebook_examples/README.md :/notebook_examples/index.json
