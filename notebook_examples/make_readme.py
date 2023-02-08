@@ -92,6 +92,7 @@ def make_readme_and_index():
             ).isoformat()
             notebook_metadata["size"] = os.path.getsize(notebook_file)
             notebook_metadata["new_field_added_to_chek_if_makefile_is_new"] = "new"
+            notebook_metadata["new_field_2"] = "new"
 
             all_notebooks[notebook_file] = notebook_metadata
 
