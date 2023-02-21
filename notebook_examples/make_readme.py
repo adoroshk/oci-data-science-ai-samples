@@ -44,16 +44,29 @@ def parse_bibblock(input: str) -> dict:
     assert all(
         x in must_have for x in results.keys()
     ), f"Missing fields in {results['filename']}: {set(must_have) - set(results.keys())}"
-    
+
     assert len(results["keywords"]), f"Must have at least one keyword"
-    
+
     # change all dict keys to be snake case with no spaces
 
-    return { k.replace(" ", "_"): v for k,v in results.items() }
+    return {k.replace(" ", "_"): v for k, v in results.items()}
 
 
 def escape_underscore(str: str) -> str:
     return str.replace("_", "\_")
+
+
+def find_git_last_commit_time_in_iso_str_format(file_name):
+    all_git_controlled_files = os.popen("git ls-files").read().strip().split("\n")
+    if file_name in all_git_controlled_files:
+        cmd = f'git log --pretty=format:%cd -n 1 --date=unix --date-order -- "{file_name}"'
+        time_string = os.popen(cmd).read()
+        assert (
+            time_string.strip() != ""
+        ), f"Unable to get git timestamp for {file_name}, this can happen when you `rm` a notebook locally, rather than using `git rm`"
+        return datetime.fromtimestamp(float(time_string.strip())).isoformat()
+    else:
+        return datetime.now().isoformat()
 
 
 def make_readme_and_index():
@@ -71,15 +84,23 @@ def make_readme_and_index():
                     return parse_bibblock(cell["source"])
                 except ValueError:
                     continue
-                
+
         return None
 
     all_notebooks = {}
-    for notebook_file in tqdm(glob.glob("[!_]*.ipynb"), leave=True):
+    ignored_notebooks = []
+
+    files = glob.glob("[!_]*.ipynb")
+    files.sort(key=os.path.getmtime)
+
+    print("Parsing notebooks...")
+    for notebook_file in tqdm(files, leave=True):
         if notebook_file == "getting_started.ipynb":
             continue
 
-        notebook_metadata = parse_notebook_metadata(nbf.read(notebook_file, nbf.NO_CONVERT))
+        notebook_metadata = parse_notebook_metadata(
+            nbf.read(notebook_file, nbf.NO_CONVERT)
+        )
         if notebook_metadata:
 
             assert (
@@ -87,14 +108,17 @@ def make_readme_and_index():
             ), f"Notebook filename [{notebook_file}] does not match [{notebook_metadata.get('filename')}]"
 
             # augment with file system meta data
-            notebook_metadata["time_created"] = datetime.fromtimestamp(
-                os.path.getctime(notebook_file)
-            ).isoformat()
+            # notebook_metadata["time_created"] = datetime.fromtimestamp(
+            #     os.path.getmtime(notebook_file)
+            # ).isoformat()
+            notebook_metadata["time_created"] = find_git_last_commit_time_in_iso_str_format(notebook_file)
             notebook_metadata["size"] = os.path.getsize(notebook_file)
             notebook_metadata["new_field_added_to_chek_if_makefile_is_new"] = "new"
             notebook_metadata["new_field_2"] = "new"
 
             all_notebooks[notebook_file] = notebook_metadata
+        else:
+            ignored_notebooks.append(notebook_file)
 
     with open(README_FILE, "w") as f:
 
@@ -149,6 +173,12 @@ The ADS SDK can be downloaded from [PyPi](https://pypi.org/project/oracle-ads/),
                 f"### <a name=\"{notebook_metadata['filename']}\"></a> - {notebook_metadata['title']}",
                 file=f,
             )
+
+            print(
+                f"\n<sub>Updated: {datetime.fromisoformat(notebook_metadata['time_created']).strftime('%m/%d/%Y')}</sub>",
+                file=f,
+            )
+
             print(
                 f"#### [`{notebook_metadata['filename']}`]({notebook_metadata['filename']})",
                 file=f,
@@ -167,14 +197,23 @@ The ADS SDK can be downloaded from [PyPi](https://pypi.org/project/oracle-ads/),
             print(f"\n<sub>{notebook_metadata['license']}</sup>", file=f)
             print(f"\n---", file=f)
 
-        print(f"{len(all_notebooks)} notebooks proceesed into {README_FILE}")
+        print(f"{len(all_notebooks)} notebooks processed into {README_FILE}")
 
     with open(INDEX_FILE, "w") as index_file:
- 
+
         json.dump(
-            sorted(all_notebooks.values(), key=lambda nb: nb["keywords"][0]), index_file, sort_keys=True, indent=2, ensure_ascii=False
+            sorted(all_notebooks.values(), key=lambda nb: nb["keywords"][0]),
+            index_file,
+            sort_keys=True,
+            indent=2,
+            ensure_ascii=False,
         )
         print(f"{len(all_notebooks)} notebooks proceesed into {INDEX_FILE}")
+
+    if ignored_notebooks:
+        print(f"{len(ignored_notebooks)} notebooks ignored (missing @notebook)")
+        for nb_file in ignored_notebooks:
+            print(f" - {nb_file}")
 
 
 if __name__ == "__main__":
